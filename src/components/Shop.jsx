@@ -6,6 +6,7 @@ export default function Shop() {
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
   const [quantity, setQuantity] = useState(0);
+  const [changed, setChanged] = useState(false);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -21,26 +22,14 @@ export default function Shop() {
   }, []);
 
   function addToCart(productId) {
-    if (cart.length > 0) {
-      const newCart = [...cart];
-      newCart.forEach((item, index) => {
-        if (item.id === productId && item.quantity === quantity) {
-          newCart.splice(index, 1, item);
-          setCart([...newCart]);
-        } else {
-          const cartProduct = products.find(
-            (product) => product.id === productId
-          );
-          cartProduct.quantity = quantity;
-          setCart([...cart, cartProduct]);
-        }
-      });
-    } else {
+    // Add product only if input quantity was changed
+    if (changed) {
       const cartProduct = products.find((product) => product.id === productId);
       cartProduct.quantity = quantity;
-      setCart([...cart, cartProduct]);
+      setCart(Array.from(new Set([...cart, cartProduct]))); // Don't repeat products
     }
     console.log(cart);
+    setChanged(false);
   }
 
   return error ? (
@@ -62,8 +51,10 @@ export default function Shop() {
               id="quantity"
               name="quantity"
               min={1}
-              defaultValue={1}
-              onChange={(e) => setQuantity(parseInt(e.target.value))}
+              onChange={(e) => {
+                setChanged(true);
+                setQuantity(parseInt(e.target.value));
+              }}
             />
           </form>
           <h2>{product.id}</h2>
