@@ -9,6 +9,7 @@ export default function Root() {
         <Link to="shop">Shop</Link>
         <Link to="cart">Cart</Link>
       </nav>
+      <h1>Welcome home!</h1>
       <div className="mainBody">
         <Outlet />
       </div>
