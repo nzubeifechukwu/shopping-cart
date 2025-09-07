@@ -1,5 +1,4 @@
-import Shop from "./components/Shop";
-import "./App.css";
+import Shop from "./routes/Shop";
 
 function App() {
   return (
