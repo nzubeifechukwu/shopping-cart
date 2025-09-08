@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
 
 export default function Shop() {
-  const [products, setProducts, cart, setCart] = useOutletContext();
+  const [products, setProducts] = useState([]);
+  const [cart, setCart] = useOutletContext();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  // const [cart, setCart] = useState([]);
   const [quantity, setQuantity] = useState(0);
   const [changed, setChanged] = useState(false);
 
@@ -20,12 +20,21 @@ export default function Shop() {
       .then((data) => setProducts(data))
       .catch((error) => setError(error))
       .finally(() => setLoading(false));
-  }, [setProducts]);
+  }, []);
 
   function addToCart(productId) {
     // Add product only if input quantity was changed
     if (changed) {
-      const cartProduct = products.find((product) => product.id === productId);
+      const cartProduct = products.find((product) => {
+        if (cart.length) {
+          cart.forEach(item => {
+            if (item.id === product.id) {
+              return;
+            }
+          })
+        }
+        return product.id === productId
+      });
       cartProduct.quantity = quantity;
       setCart(Array.from(new Set([...cart, cartProduct]))); // Don't repeat products
     }

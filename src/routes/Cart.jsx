@@ -1,13 +1,19 @@
 import { useOutletContext } from "react-router";
 
 export default function Cart() {
-  const [cart, setCart] = useOutletContext();
+  const [cart] = useOutletContext();
 
   return (
     <section>
-      {cart.map((item) => (
-        <article key={item.id}>{item.title}</article>
-      ))}
+      {!cart.length ? (
+        <h2>You have no items in your cart</h2>
+      ) : (
+        cart.map((item) => (
+          <article key={item.id}>
+            {item.title} {item.quantity}
+          </article>
+        ))
+      )}
     </section>
   );
 }
