@@ -25,18 +25,15 @@ export default function Shop() {
   function addToCart(productId) {
     // Add product only if input quantity was changed
     if (changed) {
-      const cartProduct = products.find((product) => {
-        if (cart.length) {
-          cart.forEach(item => {
-            if (item.id === product.id) {
-              return;
-            }
-          })
+      const cartProduct = products.find((product) => product.id === productId);
+      const newCart = [...cart];
+      newCart.forEach((item, index) => {
+        if (cartProduct.id === item.id) {
+          newCart.splice(index, 1, cartProduct); // Don't repeat products
         }
-        return product.id === productId
       });
       cartProduct.quantity = quantity;
-      setCart(Array.from(new Set([...cart, cartProduct]))); // Don't repeat products
+      setCart(Array.from(new Set([...newCart, cartProduct]))); // Don't repeat products
     }
     console.log(cart);
     setChanged(false);
