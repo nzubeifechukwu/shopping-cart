@@ -1,35 +1,26 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useOutletContext } from "react-router";
 
-export default function Shop({
-  products,
-  error,
-  loading,
-  cart,
-  setCart,
-  quantity,
-  setQuantity,
-  changed,
-  setChanged,
-}) {
-  // const [products, setProducts] = useState([]);
-  // const [error, setError] = useState(null);
-  // const [loading, setLoading] = useState(true);
+export default function Shop() {
+  const [products, setProducts, cart, setCart] = useOutletContext();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   // const [cart, setCart] = useState([]);
-  // const [quantity, setQuantity] = useState(0);
-  // const [changed, setChanged] = useState(false);
+  const [quantity, setQuantity] = useState(0);
+  const [changed, setChanged] = useState(false);
 
-  // useEffect(() => {
-  //   fetch("https://fakestoreapi.com/products")
-  //     .then((response) => {
-  //       if (response.status >= 400) {
-  //         throw new Error("server error");
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => setProducts(data))
-  //     .catch((error) => setError(error))
-  //     .finally(() => setLoading(false));
-  // }, []);
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products")
+      .then((response) => {
+        if (response.status >= 400) {
+          throw new Error("server error");
+        }
+        return response.json();
+      })
+      .then((data) => setProducts(data))
+      .catch((error) => setError(error))
+      .finally(() => setLoading(false));
+  }, [setProducts]);
 
   function addToCart(productId) {
     // Add product only if input quantity was changed
