@@ -1,7 +1,7 @@
 import { useOutletContext } from "react-router";
 
 export default function Cart() {
-  const [cart] = useOutletContext();
+  const [cart, setCart] = useOutletContext();
 
   return (
     <section>
@@ -11,6 +11,14 @@ export default function Cart() {
         cart.map((item) => (
           <article key={item.id}>
             {item.title} {item.quantity}
+            <button
+              type="button"
+              onClick={() =>
+                setCart(cart.filter((element) => element.id !== item.id))
+              }
+            >
+              Delete
+            </button>
           </article>
         ))
       )}
