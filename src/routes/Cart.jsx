@@ -20,7 +20,7 @@ export default function Cart() {
       item.quantity -= 1;
     } else {
       alert(
-        "You have just 1 of this item in your cart. Use the Delete button to remove it."
+        "You have just 1 of this item in your cart. Use the Remove button to remove it."
       );
     }
     setRerender(!rerender);
@@ -48,7 +48,7 @@ export default function Cart() {
                 setCart(cart.filter((element) => element.id !== item.id))
               }
             >
-              Delete
+              Remove
             </button>
           </article>
         ))
