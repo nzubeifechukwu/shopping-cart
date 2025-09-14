@@ -4,7 +4,10 @@ import { Link } from "react-router";
 
 export default function Root() {
   const [cart, setCart] = useState([]);
-  const [page, setPage] = useState("home"); // Use to set home page text
+
+  // Use to set home page text. This solution doesn't work
+  // when you click browser back button to return to home.
+  const [page, setPage] = useState("home");
 
   return (
     <>
@@ -24,8 +27,12 @@ export default function Root() {
           <h1>Zast E-Commerce Store</h1>
           <p>
             A one-stop online shop for all your needs. Head over to{" "}
-            <strong>Shop</strong> for a list of our products and to fill your
-            cart.
+            <strong>
+              <Link to="shop" onClick={() => setPage("")}>
+                Shop
+              </Link>
+            </strong>{" "}
+            for a list of our products and to fill your cart.
           </p>
         </section>
       )}
