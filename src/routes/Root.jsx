@@ -1,38 +1,35 @@
-import { useState } from "react";
-import { Outlet } from "react-router";
-import { Link } from "react-router";
+import { useEffect, useState } from "react";
+import { Link, Outlet, useLocation } from "react-router";
 
 export default function Root() {
   const [cart, setCart] = useState([]);
+  const [page, setPage] = useState("");
 
-  // Use to set home page text. This solution doesn't work
-  // when you click browser back button to return to home.
-  const [page, setPage] = useState("home");
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setPage("home");
+      // console.log(location.pathname);
+    } else {
+      setPage("");
+    }
+  }, [location]);
 
   return (
     <>
       <nav>
-        <Link to="/" onClick={() => setPage("home")}>
-          Home
-        </Link>
-        <Link to="shop" onClick={() => setPage("")}>
-          Shop
-        </Link>
-        <Link to="cart" onClick={() => setPage("")}>
-          Cart
-        </Link>
+        <Link to="/">Home</Link>
+        <Link to="shop">Shop</Link>
+        <Link to="cart">Cart</Link>
       </nav>
       {page && (
         <section className="hero">
           <h1>Zast E-Commerce Store</h1>
           <p>
             A one-stop online shop for all your needs. Head over to{" "}
-            <strong>
-              <Link to="shop" onClick={() => setPage("")}>
-                Shop
-              </Link>
-            </strong>{" "}
-            for a list of our products and to fill your cart.
+            <Link to="shop">Shop</Link> for a list of our products and to fill
+            your cart.
           </p>
         </section>
       )}
