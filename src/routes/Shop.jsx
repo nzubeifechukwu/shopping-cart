@@ -47,8 +47,8 @@ export default function Shop() {
     <section>
       {products.map((product) => (
         <article key={product.id}>
-          <img src={product.image} alt={product.title} />
           <h2>{product.title}</h2>
+          <img src={product.image} alt={product.title} />
           <p>${product.price}</p>
           <p>{product.description}</p>
           <form action="">

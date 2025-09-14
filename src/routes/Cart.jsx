@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useOutletContext } from "react-router";
+import { Link, useOutletContext } from "react-router";
 
 export default function Cart() {
   const [cart, setCart] = useOutletContext();
@@ -20,7 +20,7 @@ export default function Cart() {
       item.quantity -= 1;
     } else {
       alert(
-        "You have just 1 of this item in your cart. Use the Remove button to remove it."
+        "You have just 1 of this item left in your cart. Click the Remove button if you want to remove it."
       );
     }
     setRerender(!rerender);
@@ -29,11 +29,24 @@ export default function Cart() {
   return (
     <section>
       {!cart.length ? (
-        <h2>You have no items in your cart</h2>
+        <p>
+          You have no items in your cart. Head over to{" "}
+          <Link to="/shop">Shop</Link> for a list of our products and to fill
+          your cart.
+        </p>
       ) : (
         cart.map((item) => (
           <article key={item.id}>
-            {item.title} {item.quantity}
+            <h2>{item.title}</h2>
+            <img src={item.image} alt={item.title} />
+            <p>
+              <strong>PRICE (per item): </strong>${item.price}
+            </p>
+            <p>
+              <strong>QUANTITY: </strong>
+              {item.quantity}
+            </p>
+            <p>{item.description}</p>
             <div className="changeQuantityBtns">
               <button type="button" onClick={() => increaseQuantity(item.id)}>
                 +
