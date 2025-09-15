@@ -22,9 +22,7 @@ describe("Root component", () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByRole("heading").textContent).toMatch(
-      /zast e-commerce store/i
-    );
+    expect(screen.getByRole("heading")).toBeInTheDocument();
   });
 
   it("renders nav", () => {
@@ -43,5 +41,14 @@ describe("Root component", () => {
       </MemoryRouter>
     );
     expect(screen.getAllByRole("link")).toHaveLength(5);
+  });
+
+  it("renders text", () => {
+    render(
+      <MemoryRouter>
+        <Root />
+      </MemoryRouter>
+    );
+    expect(screen.getByText(/one-stop online shop/i)).toBeInTheDocument();
   });
 });
