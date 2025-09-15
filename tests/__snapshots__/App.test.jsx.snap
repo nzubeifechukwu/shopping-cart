@@ -1,0 +1,54 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Root component > renders Home page when no nav link has been clicked 1`] = `
+<div>
+  <nav>
+    <a
+      data-discover="true"
+      href="/"
+    >
+      Home
+    </a>
+    <a
+      data-discover="true"
+      href="/shop"
+    >
+      Shop
+    </a>
+    <a
+      data-discover="true"
+      href="/cart"
+    >
+      Cart
+    </a>
+  </nav>
+  <section
+    class="hero"
+  >
+    <h1>
+      Zast E-Commerce Store
+    </h1>
+    <p>
+      A one-stop online shop for all your needs. Head over to
+       
+      <a
+        data-discover="true"
+        href="/shop"
+      >
+        Shop
+      </a>
+       for a list of our products and to fill your 
+      <a
+        data-discover="true"
+        href="/cart"
+      >
+        cart
+      </a>
+      .
+    </p>
+  </section>
+  <div
+    class="mainBody"
+  />
+</div>
+`;
