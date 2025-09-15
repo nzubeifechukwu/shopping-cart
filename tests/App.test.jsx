@@ -15,14 +15,33 @@ describe("Root component", () => {
     screen.debug();
   });
 
-  it("renders correct heading", () => {
+  it("renders heading", () => {
     render(
       <MemoryRouter>
         <Root />
       </MemoryRouter>
     );
+
     expect(screen.getByRole("heading").textContent).toMatch(
       /zast e-commerce store/i
     );
+  });
+
+  it("renders nav", () => {
+    render(
+      <MemoryRouter>
+        <Root />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole("navigation")).toBeInTheDocument();
+  });
+
+  it("renders links", () => {
+    render(
+      <MemoryRouter>
+        <Root />
+      </MemoryRouter>
+    );
+    expect(screen.getAllByRole("link")).toHaveLength(5);
   });
 });
