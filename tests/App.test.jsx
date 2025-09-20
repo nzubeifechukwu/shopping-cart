@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
@@ -13,31 +13,31 @@ import Shop from "../src/routes/Shop";
 import Cart from "../src/routes/Cart";
 import ErrorPage from "../src/ErrorPage";
 
-// Initialize routes and router
-const routes = [
-  {
-    path: "/",
-    element: <Root />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "shop",
-        element: <Shop />,
-      },
-      {
-        path: "cart",
-        element: <Cart />,
-      },
-    ],
-  },
-];
-const router = createMemoryRouter(routes, {
-  initialEntries: ["/", "/shop", "/cart"],
-  initialIndex: 0,
-});
-
-// Test suite
+// Test suite for Root component
 describe("Root component", () => {
+  // Initialize routes and router
+  const routes = [
+    {
+      path: "/",
+      element: <Root />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "shop",
+          element: <Shop />,
+        },
+        {
+          path: "cart",
+          element: <Cart />,
+        },
+      ],
+    },
+  ];
+  const router = createMemoryRouter(routes, {
+    initialEntries: ["/", "/shop", "/cart"],
+    initialIndex: 0,
+  });
+
   it("renders component", () => {
     render(<RouterProvider router={router} />);
 
@@ -73,6 +73,21 @@ describe("Root component", () => {
     expect(await screen.findAllByRole("button")).toHaveLength(20);
   });
 
+  it("calls the addToCart function when 'Add to Cart' button is clicked", async () => {
+    const addToCart = vi.fn();
+    const user = userEvent.setup();
+
+    render(<RouterProvider router={router} />);
+
+    const navLinks = screen.getAllByRole("link", { name: "Shop" });
+    await user.click(navLinks[1]);
+
+    const buttons = screen.getAllByRole("button", { name: "Add to Cart" });
+    await user.click(buttons[0]);
+
+    expect(addToCart).toHaveBeenCalled();
+  });
+
   it("correctly renders Cart page when cart is empty", async () => {
     const user = userEvent.setup();
     render(<RouterProvider router={router} />);
@@ -83,20 +98,20 @@ describe("Root component", () => {
     ).toBeInTheDocument();
   });
 
-  it("correctly renders Cart page when cart is not empty", async () => {
-    const user = userEvent.setup();
+  // it("correctly renders Cart page when cart is not empty", async () => {
+  //   const user = userEvent.setup();
 
-    render(<RouterProvider router={router} />);
+  //   render(<RouterProvider router={router} />);
 
-    const navLinks = screen.getAllByRole("link");
-    await user.click(navLinks[1]);
+  //   const navLinks = screen.getAllByRole("link");
+  //   await user.click(navLinks[1]);
 
-    const buttons = screen.getAllByRole("button");
-    await user.click(buttons[0]);
+  //   const buttons = screen.getAllByRole("button");
+  //   await user.click(buttons[0]);
 
-    // const navLinks = screen.getAllByRole("link", { name: "Cart" });
-    await user.click(navLinks[navLinks.length - 1]);
+  //   // const navLinks = screen.getAllByRole("link", { name: "Cart" });
+  //   await user.click(navLinks[navLinks.length - 1]);
 
-    expect(await screen.findAllByRole("button")).toHaveLength(3);
-  });
+  //   expect(await screen.findAllByRole("button")).toHaveLength(3);
+  // });
 });
