@@ -1,120 +1,102 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter, Outlet, Routes, Route } from "react-router";
+import {
+  createMemoryRouter,
+  RouterProvider,
+  Outlet,
+  Routes,
+  Route,
+} from "react-router";
 import Root from "../src/routes/Root";
 import Shop from "../src/routes/Shop";
+import Cart from "../src/routes/Cart";
+import ErrorPage from "../src/ErrorPage";
 
-// Test suite for Root component
+// Initialize routes and router
+const routes = [
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "shop",
+        element: <Shop />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
+      },
+    ],
+  },
+];
+const router = createMemoryRouter(routes, {
+  initialEntries: ["/", "/shop", "/cart"],
+  initialIndex: 0,
+});
+
+// Test suite
 describe("Root component", () => {
   it("renders component", () => {
-    render(
-      <MemoryRouter>
-        <Root />
-      </MemoryRouter>
-    );
+    render(<RouterProvider router={router} />);
 
     screen.debug();
   });
 
-  it("renders heading", () => {
-    render(
-      <MemoryRouter>
-        <Root />
-      </MemoryRouter>
-    );
+  it("renders home page heading", () => {
+    render(<RouterProvider router={router} />);
 
     expect(screen.getByRole("heading")).toBeInTheDocument();
   });
 
   it("renders nav", () => {
-    render(
-      <MemoryRouter>
-        <Root />
-      </MemoryRouter>
-    );
+    render(<RouterProvider router={router} />);
     expect(screen.getByRole("navigation")).toBeInTheDocument();
   });
 
   it("renders links", () => {
-    render(
-      <MemoryRouter>
-        <Root />
-      </MemoryRouter>
-    );
+    render(<RouterProvider router={router} />);
     expect(screen.getAllByRole("link")).toHaveLength(5);
   });
 
   it("renders text", () => {
-    render(
-      <MemoryRouter>
-        <Root />
-      </MemoryRouter>
-    );
+    render(<RouterProvider router={router} />);
     expect(screen.getByText(/one-stop online shop/i)).toBeInTheDocument();
-  });
-
-  it("renders Home page when no nav link has been clicked", () => {
-    // screen has no container property, so destructure render to get container
-    const { container } = render(
-      <MemoryRouter>
-        <Root />
-      </MemoryRouter>
-    );
-    expect(container).toMatchSnapshot();
   });
 
   it("renders Shop page after Shop nav link is clicked", async () => {
     const user = userEvent.setup();
-    render(
-      <MemoryRouter>
-        <Root />
-      </MemoryRouter>
-    );
+    render(<RouterProvider router={router} />);
     const navLinks = screen.getAllByRole("link", { name: "Shop" });
-    await user.click(navLinks[0]);
+    await user.click(navLinks[1]);
     expect(await screen.findAllByRole("button")).toHaveLength(20);
   });
+
+  it("correctly renders Cart page when cart is empty", async () => {
+    const user = userEvent.setup();
+    render(<RouterProvider router={router} />);
+    const navLinks = screen.getAllByRole("link", { name: "Cart" });
+    await user.click(navLinks[navLinks.length - 1]);
+    expect(
+      await screen.findByText(/no items in your cart/i)
+    ).toBeInTheDocument();
+  });
+
+  it("correctly renders Cart page when cart is not empty", async () => {
+    const user = userEvent.setup();
+
+    render(<RouterProvider router={router} />);
+
+    const navLinks = screen.getAllByRole("link");
+    await user.click(navLinks[1]);
+
+    const buttons = screen.getAllByRole("button");
+    await user.click(buttons[0]);
+
+    // const navLinks = screen.getAllByRole("link", { name: "Cart" });
+    await user.click(navLinks[navLinks.length - 1]);
+
+    expect(await screen.findAllByRole("button")).toHaveLength(3);
+  });
 });
-
-// Test suite for Shop component
-// Mock the parent element
-// const ParentComponentWithOutlet = ({ children }) => {
-//   const outletContextValue = {
-//     message: "Hello from Outlet Context",
-//     count: 5,
-//   };
-//   return <Outlet context={outletContextValue} />;
-// };
-// describe("Shop component", () => {
-//   it("renders the component with outlet context provided", () => {
-//     render(
-//       <MemoryRouter>
-//         <Routes>
-//           <Route path="/" element={<ParentComponentWithOutlet />}>
-//             <Route element={<Shop />} />
-//           </Route>
-//         </Routes>
-//       </MemoryRouter>
-//     );
-//     screen.debug();
-//   });
-
-//   it("renders data from the API call", async () => {
-//     render(
-//       <MemoryRouter>
-//         <Routes>
-//           <Route path="/" element={<ParentComponentWithOutlet />}>
-//             <Route element={<Shop />} />
-//           </Route>
-//         </Routes>
-//       </MemoryRouter>
-//     );
-
-//     expect(await screen.findAllByRole("button")).toHaveLength(20)
-
-//     // expect(
-//     //   await screen.findByText(/Your perfect pack for everyday use/)
-//     // ).toBeInTheDocument();
-//   });
-// });
