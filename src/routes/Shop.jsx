@@ -64,7 +64,6 @@ export default function Shop() {
               }}
             />
           </form>
-          {/* <h2>{product.id}</h2> */}
           <button type="button" onClick={() => addToCart(product.id)}>
             Add to Cart
           </button>

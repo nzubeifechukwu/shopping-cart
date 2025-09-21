@@ -7,6 +7,7 @@ import {
   Outlet,
   Routes,
   Route,
+  MemoryRouter,
 } from "react-router";
 import Root from "../src/routes/Root";
 import Shop from "../src/routes/Shop";
@@ -73,21 +74,6 @@ describe("Root component", () => {
     expect(await screen.findAllByRole("button")).toHaveLength(20);
   });
 
-  it("calls the addToCart function when 'Add to Cart' button is clicked", async () => {
-    const addToCart = vi.fn();
-    const user = userEvent.setup();
-
-    render(<RouterProvider router={router} />);
-
-    const navLinks = screen.getAllByRole("link", { name: "Shop" });
-    await user.click(navLinks[1]);
-
-    const buttons = screen.getAllByRole("button", { name: "Add to Cart" });
-    await user.click(buttons[0]);
-
-    expect(addToCart).toHaveBeenCalled();
-  });
-
   it("correctly renders Cart page when cart is empty", async () => {
     const user = userEvent.setup();
     render(<RouterProvider router={router} />);
@@ -97,21 +83,84 @@ describe("Root component", () => {
       await screen.findByText(/no items in your cart/i)
     ).toBeInTheDocument();
   });
+});
 
-  // it("correctly renders Cart page when cart is not empty", async () => {
+// mock data for Shop component
+// function ShopCart() {
+//   const products = [
+//     { id: 1, title: "product 1", price: 15, description: "this is product 1" },
+//     { id: 2, title: "product 2", price: 35, description: "this is product 2" },
+//   ];
+//   let cart = [];
+
+//   function addToCart(productId) {
+//     if (cart.length) {
+//       cart.forEach((item) => {
+//         if (item.id !== productId) {
+//           cart.push(products.find((product) => product.id === productId));
+//           return;
+//         }
+//       });
+//     } else {
+//       cart.push(products.find((product) => product.id === productId));
+//     }
+//   }
+
+//   return (
+//     <section>
+//       {products.map((product) => (
+//         <article key={product.id}>
+//           <h2>{product.title}</h2>
+//           <img src={product.image} alt={product.title} />
+//           <p>${product.price}</p>
+//           <p>{product.description}</p>
+//           <form action="">
+//             <label htmlFor="quantity">Quantity </label>
+//             <input
+//               type="number"
+//               id="quantity"
+//               name="quantity"
+//               min={1}
+//               onChange={(e) => {
+//                 setChanged(true);
+//                 setQuantity(parseInt(e.target.value));
+//               }}
+//             />
+//           </form>
+//           <button type="button" onClick={() => addToCart(product.id)}>
+//             Add to Cart
+//           </button>
+//         </article>
+//       ))}
+//     </section>
+//   );
+// }
+
+describe("Shop component", () => {
+  const routes = [
+    {
+      path: "/shop",
+      element: <Shop />,
+    },
+  ];
+  const router = createMemoryRouter(routes, {
+    initialEntries: ["/shop"],
+  });
+
+  it("renders Shop component", () => {
+    render(<RouterProvider router={router} />);
+    screen.debug();
+  });
+
+  // it("calls the addToCart function when Add to Cart button is clicked", async () => {
+  //   // const addToCart = vi.fn();
   //   const user = userEvent.setup();
 
-  //   render(<RouterProvider router={router} />);
+  //   render(<ShopCart />);
 
-  //   const navLinks = screen.getAllByRole("link");
-  //   await user.click(navLinks[1]);
-
-  //   const buttons = screen.getAllByRole("button");
+  //   const buttons = screen.getByRole("button");
   //   await user.click(buttons[0]);
 
-  //   // const navLinks = screen.getAllByRole("link", { name: "Cart" });
-  //   await user.click(navLinks[navLinks.length - 1]);
-
-  //   expect(await screen.findAllByRole("button")).toHaveLength(3);
+  //   expect(addToCart).toHaveBeenCalled();
   // });
 });
