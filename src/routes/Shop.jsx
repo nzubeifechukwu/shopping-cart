@@ -35,19 +35,20 @@ export default function Shop() {
       cartProduct.quantity = quantity;
       setCart(Array.from(new Set([...newCart, cartProduct]))); // Don't repeat products
     }
-    console.log(cart);
+    // console.log(cart);
     setChanged(false);
   }
 
   return error ? (
-    <h1>Oops! There's a network error!</h1>
+    <p>Oops! There's a network error!</p>
   ) : loading ? (
-    <h1>Loading...</h1>
+    <p>Loading...</p>
   ) : (
     <section>
+      <h2>Items in our store...</h2>
       {products.map((product) => (
         <article key={product.id}>
-          <h2>{product.title}</h2>
+          <h3>{product.title}</h3>
           <img src={product.image} alt={product.title} />
           <p>${product.price}</p>
           <p>{product.description}</p>

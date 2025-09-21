@@ -27,7 +27,7 @@ export default function Cart() {
   }
 
   return (
-    <section>
+    <>
       {!cart.length ? (
         <p>
           You have no items in your cart. Head over to{" "}
@@ -35,37 +35,40 @@ export default function Cart() {
           your cart.
         </p>
       ) : (
-        cart.map((item) => (
-          <article key={item.id}>
-            <h2>{item.title}</h2>
-            <img src={item.image} alt={item.title} />
-            <p>
-              <strong>PRICE (per item): </strong>${item.price}
-            </p>
-            <p>
-              <strong>QUANTITY: </strong>
-              {item.quantity}
-            </p>
-            <p>{item.description}</p>
-            <div className="changeQuantityBtns">
-              <button type="button" onClick={() => increaseQuantity(item.id)}>
-                +
+        <section>
+          <h2>Items in your cart...</h2>
+          {cart.map((item) => (
+            <article key={item.id}>
+              <h3>{item.title}</h3>
+              <img src={item.image} alt={item.title} />
+              <p>
+                <strong>PRICE (per item): </strong>${item.price}
+              </p>
+              <p>
+                <strong>QUANTITY: </strong>
+                {item.quantity}
+              </p>
+              <p>{item.description}</p>
+              <div className="changeQuantityBtns">
+                <button type="button" onClick={() => increaseQuantity(item.id)}>
+                  +
+                </button>
+                <button type="button" onClick={() => decreaseQuantity(item.id)}>
+                  -
+                </button>
+              </div>
+              <button
+                type="button"
+                onClick={() =>
+                  setCart(cart.filter((element) => element.id !== item.id))
+                }
+              >
+                Remove
               </button>
-              <button type="button" onClick={() => decreaseQuantity(item.id)}>
-                -
-              </button>
-            </div>
-            <button
-              type="button"
-              onClick={() =>
-                setCart(cart.filter((element) => element.id !== item.id))
-              }
-            >
-              Remove
-            </button>
-          </article>
-        ))
+            </article>
+          ))}
+        </section>
       )}
-    </section>
+    </>
   );
 }

@@ -4,13 +4,17 @@ import { Link, Outlet, useLocation } from "react-router";
 export default function Root() {
   const [cart, setCart] = useState([]);
   const location = useLocation();
+  const totalCartItems = cart.reduce((prev, curr) => prev + curr.quantity, 0);
+  // console.log(totalCartItems);
 
   return (
     <>
       <nav>
         <Link to="/">Home</Link>
         <Link to="shop">Shop</Link>
-        <Link to="cart">Cart</Link>
+        <Link to="cart">
+          Cart <span>{totalCartItems ? totalCartItems : ""}</span>
+        </Link>
       </nav>
       <section className="hero">
         <h1>Zast E-Commerce Store</h1>
