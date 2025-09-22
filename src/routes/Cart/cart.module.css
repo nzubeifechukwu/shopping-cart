@@ -1,0 +1,37 @@
+.price {
+  margin-top: 20px;
+  font-weight: 500;
+}
+
+.changeQuantityBtns {
+  display: flex;
+}
+
+.changeQuantityBtns > button {
+  border: none;
+  font-size: 1.5rem;
+  width: 30px;
+  cursor: pointer;
+}
+
+.changeQuantityBtns > .upBtn {
+  padding-top: 15px;
+  color: white;
+  background-color: #008000;
+  border-radius: 10px 0 0 10px;
+}
+
+.changeQuantityBtns > .downBtn {
+  padding-bottom: 15px;
+  color: white;
+  background-color: #e71111;
+  border-radius: 0 10px 10px 0;
+}
+
+.changeQuantityBtns > .upBtn:hover {
+  background-color: #006400;
+}
+
+.changeQuantityBtns > .downBtn:hover {
+  background-color: #d00000;
+}

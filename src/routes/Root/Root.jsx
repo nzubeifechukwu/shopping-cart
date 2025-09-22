@@ -30,6 +30,15 @@ export default function Root() {
       <section className={styles.mainBody}>
         <Outlet context={[cart, setCart]} />
       </section>
+      <footer className={styles.footer}>
+        Built by{" "}
+        <Link
+          to="https://github.com/nzubeifechukwu/shopping-cart"
+          target="_blank"
+        >
+          Nzube Ifechukwu
+        </Link>
+      </footer>
     </>
   );
 }

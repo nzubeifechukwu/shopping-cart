@@ -41,9 +41,9 @@ export default function Shop() {
   }
 
   return error ? (
-    <p>Oops! There's a network error!</p>
+    <p className={styles.initialP}>Oops! There's a network error!</p>
   ) : loading ? (
-    <p>Loading...</p>
+    <p className={styles.initialP}>Loading...</p>
   ) : (
     <>
       <h2>Items in our store</h2>

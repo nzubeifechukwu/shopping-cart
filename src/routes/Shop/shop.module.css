@@ -1,10 +1,12 @@
+.initialP {
+  margin-bottom: 60px;
+}
+
 .products {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  margin-top: 2rem;
-  margin-left: 60px;
-  margin-right: 60px;
+  margin: 2rem 60px 60px;
 }
 
 .products > article {
@@ -25,6 +27,7 @@
   display: flex;
   margin: 20px;
   font-weight: 500;
+  align-items: center;
 }
 
 .products > article > div > p {
