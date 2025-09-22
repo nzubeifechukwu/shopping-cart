@@ -1,12 +1,24 @@
-# React + Vite
+# Shopping Cart
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Shopping Cart is an e-commerce website. This is my first foray into the concept of SPA (single-page application). The website has three pages: Home, Shop and Cart.
 
-Currently, two official plugins are available:
+See the [live demo](https://nzubeifechukwu-shopping-cart.netlify.app/).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tools/Languages/Skills
 
-## Expanding the ESLint configuration
+- React
+- React Router
+- SPA
+- API calls
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Inspiration
+
+This [Shopping Cart project](https://www.theodinproject.com/lessons/node-path-react-new-shopping-cart) is part of [The Odin Project](https://www.theodinproject.com/)'s Full-Stack Web Development (JavaScript) path.
+
+## Credit
+
+I got the products used for this project from the [Fake Store API](https://fakestoreapi.com/).
+
+## Contact
+
+You can reach me on [X](https://x.com/NzubeIfechukwu) or [LinkedIn](https://www.linkedin.com/in/nzubeifechukwu/).
