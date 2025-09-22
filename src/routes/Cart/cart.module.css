@@ -3,6 +3,10 @@
   font-weight: 500;
 }
 
+.qtyBtnsDiv > p {
+  align-self: flex-start;
+}
+
 .changeQuantityBtns {
   display: flex;
 }

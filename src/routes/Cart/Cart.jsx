@@ -48,7 +48,7 @@ export default function Cart() {
                 <p className={cartStyles.price}>
                   PRICE (per item): ${item.price}
                 </p>
-                <div>
+                <div className={cartStyles.qtyBtnsDiv}>
                   <p>QTY {item.quantity}</p>
                   <div className={cartStyles.changeQuantityBtns}>
                     <button

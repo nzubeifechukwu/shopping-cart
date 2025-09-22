@@ -29,11 +29,16 @@
   display: flex;
   margin: 20px;
   font-weight: 500;
-  align-items: center;
+  align-items:flex-end;
 }
 
 .products > article > div > p {
-  margin-right: 80px;
+  margin-right: 60px;
+}
+
+.products > article > div > form {
+    display: flex;
+    align-items: flex-end;
 }
 
 .products > article > div > form > label {
