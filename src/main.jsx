@@ -2,9 +2,9 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
 
-import Root from "./routes/Root";
+import Root from "./routes/Root/Root";
 import ErrorPage from "./ErrorPage";
-import Shop from "./routes/Shop";
+import Shop from "./routes/Shop/Shop";
 import Cart from "./routes/Cart";
 
 import "./index.css";

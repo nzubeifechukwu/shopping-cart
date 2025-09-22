@@ -1,22 +1,23 @@
 import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router";
 
+import styles from "./root.module.css";
+
 export default function Root() {
   const [cart, setCart] = useState([]);
   const location = useLocation();
   const totalCartItems = cart.reduce((prev, curr) => prev + curr.quantity, 0);
-  // console.log(totalCartItems);
 
   return (
     <>
-      <nav>
+      <nav className={styles.nav}>
         <Link to="/">Home</Link>
         <Link to="shop">Shop</Link>
         <Link to="cart">
           Cart <span>{totalCartItems ? totalCartItems : ""}</span>
         </Link>
       </nav>
-      <section className="hero">
+      <section className={styles.hero}>
         <h1>Zast E-Commerce Store</h1>
         {location.pathname === "/" && (
           <p>
@@ -26,9 +27,9 @@ export default function Root() {
           </p>
         )}
       </section>
-      <div className="mainBody">
+      <section className={styles.mainBody}>
         <Outlet context={[cart, setCart]} />
-      </div>
+      </section>
     </>
   );
 }

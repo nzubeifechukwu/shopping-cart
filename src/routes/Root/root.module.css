@@ -1,0 +1,37 @@
+nav {
+  display: flex;
+  justify-content: space-evenly;
+  font-weight: 600;
+  padding: 32px;
+  background-color: #bc6c25;
+  position: fixed;
+  width: 100%;
+}
+
+nav > a {
+  text-decoration: none;
+  color: #fefae0;
+  text-transform: uppercase;
+}
+
+nav > a:hover {
+  color: #faedcd;
+}
+
+nav > a > span {
+  color: #bc6c25;
+  background-color: #fefae0;
+  border-radius: 50%;
+}
+
+.hero {
+  padding-top: 120px;
+  background-color: #faedcd;
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+}
+
+.hero > h1 {
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}

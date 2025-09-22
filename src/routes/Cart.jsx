@@ -35,7 +35,7 @@ export default function Cart() {
           your cart.
         </p>
       ) : (
-        <section>
+        <>
           <h2>Items in your cart...</h2>
           {cart.map((item) => (
             <article key={item.id}>
@@ -67,7 +67,7 @@ export default function Cart() {
               </button>
             </article>
           ))}
-        </section>
+        </>
       )}
     </>
   );
